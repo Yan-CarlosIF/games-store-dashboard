@@ -7,16 +7,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
-import { useState } from "react";
-import { DateRange } from "react-day-picker";
-import { addDays, format } from "date-fns";
+import { useContext, useState } from "react";
+import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
+import { DateFilterContext } from "@/context/date-filter-context";
 
 export default function DatePicker() {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  });
+  const { date, setDate } = useContext(DateFilterContext);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

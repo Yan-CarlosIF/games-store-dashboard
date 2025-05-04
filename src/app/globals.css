@@ -4,7 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-poppins: var(--font-roboto);
+  --font-poppins: var(--font-poppins);
+  --font-barlow: var(--font-barlow);
   --color-black-200: #333333;
 }
 

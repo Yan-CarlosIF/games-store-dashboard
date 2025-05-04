@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Barlow } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { ReactNode } from "react";
@@ -8,6 +8,13 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
   variable: "--font-poppins",
+  display: "swap",
+});
+
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -22,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} font-poppins flex h-screen w-screen bg-[#F3F2F7] antialiased`}
+        className={`${poppins.className} ${barlow.variable} font-poppins flex h-screen w-screen bg-[#F3F2F7] antialiased`}
       >
         <Navbar />
         {children}

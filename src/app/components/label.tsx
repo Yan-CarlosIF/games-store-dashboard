@@ -23,7 +23,7 @@ export default function Label({ icon, url, content }: LabelProps) {
       <Button
         onClick={() => router.push(url)}
         className={twMerge(
-          "flex h-10 w-[200px] cursor-pointer justify-start gap-6 bg-white text-gray-800 transition-colors duration-200 ease-in-out hover:bg-green-300/30 hover:font-semibold hover:text-green-500",
+          "font-barlow flex h-10 w-[200px] cursor-pointer justify-start gap-6 bg-white text-gray-800 shadow-none transition-colors duration-200 ease-in-out hover:bg-green-300/30 hover:font-semibold hover:text-green-500",
           params === url && "bg-green-300/30 font-semibold text-green-500",
         )}
       >
