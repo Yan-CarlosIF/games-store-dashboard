@@ -1,5 +1,5 @@
 import { Brain } from "lucide-react";
-import Label from "./label";
+import Label from "../components/label";
 
 export default function Navbar() {
   return (

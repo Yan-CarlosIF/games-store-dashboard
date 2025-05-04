@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Barlow } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
 import { ReactNode } from "react";
 
 const poppins = Poppins({
@@ -25,14 +24,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: Readonly<{ children: ReactNode }>) {
+  navbar,
+}: {
+  children: ReactNode;
+  navbar: ReactNode;
+}) {
   return (
     <html lang="en">
       <body
         className={`${poppins.className} ${barlow.variable} font-poppins flex h-screen w-screen bg-[#F3F2F7] antialiased`}
       >
-        <Navbar />
-        {children}
+        {navbar}
+        <main className="flex w-full flex-col px-12 py-10">{children}</main>
       </body>
     </html>
   );
