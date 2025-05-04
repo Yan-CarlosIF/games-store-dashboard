@@ -2,6 +2,7 @@ import { api } from "@/lib/axios";
 import Card from "./components/card";
 import DatePicker from "./components/date-picker";
 import DateFilterProvider from "@/context/date-filter-provider";
+import Charts from "./components/charts";
 
 export default async function Home() {
   const orders = (await api.get<Order[]>("/order/get")).data;
@@ -34,6 +35,7 @@ export default async function Home() {
           />
           <Card icon="bag" content="Receita Total" data={orders} />
         </div>
+        <Charts />
       </main>
     </DateFilterProvider>
   );
