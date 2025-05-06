@@ -17,27 +17,15 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+interface SortButtonProps {
+  options: {
+    value: string;
+    label: string;
+  }[];
+  className?: string;
+}
 
-const options = [
-  {
-    value: "mais-recentes",
-    label: "Mais recentes",
-  },
-  {
-    value: "mais-antigos",
-    label: "Mais antigos",
-  },
-  {
-    value: "mais-compras",
-    label: "Mais compras",
-  },
-  {
-    value: "menos-compras",
-    label: "Menos compras",
-  },
-];
-
-export default function SortButton() {
+export default function SortButton({ options, className }: SortButtonProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -48,7 +36,10 @@ export default function SortButton() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="text-black-200/90 w-[200px] justify-between"
+          className={twMerge(
+            "text-black-200/90 w-[200px] justify-between",
+            className,
+          )}
         >
           {value
             ? options.find((sortOption) => sortOption.value === value)?.label

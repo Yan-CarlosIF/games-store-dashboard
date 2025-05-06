@@ -1,3 +1,5 @@
+import { Cliente, Pedido, Produto, Status } from "@/types/schema";
+
 export const clientsFakeData: (Omit<Cliente, "pedidos"> & {
   pedidos: string[];
 })[] = [
@@ -164,5 +166,288 @@ export const clientsFakeData: (Omit<Cliente, "pedidos"> & {
     cidade: "Maceió",
     numeroCasa: 710,
     pedidos: ["Pedido de fone gamer", "Assinatura de e-book"],
+  },
+];
+
+export const productsFakeData: Produto[] = [
+  {
+    nome: "The Last of Us Part II",
+    preco: 299.99,
+    descricao: "Jogo de ação e aventura desenvolvido pela Naughty Dog.",
+    estoque: 10,
+    jogo: {
+      desenvolvedora: "Naughty Dog",
+      dataLancamento: new Date("2020-06-19"),
+      plataforma: "PlayStation 4",
+      generos: [{ nome: "Ação" }, { nome: "Aventura" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A001"],
+  },
+  {
+    nome: "Controle DualShock 4",
+    preco: 99.99,
+    descricao: "Controle sem fio para PlayStation 4.",
+    estoque: 25,
+    jogo: null,
+    ItemEletronico: {
+      fabricante: "Sony",
+
+      tipo: "Acessório",
+    },
+    pedidos: ["A002", "A002"],
+  },
+  {
+    nome: "Cyberpunk 2077",
+    preco: 499.99,
+    descricao: "RPG futurista em mundo aberto da CD Projekt Red.",
+    estoque: 15,
+    jogo: {
+      desenvolvedora: "CD Projekt Red",
+      dataLancamento: new Date("2020-12-10"),
+      plataforma: "PC",
+      generos: [{ nome: "RPG" }, { nome: "Ação" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A003"],
+  },
+  {
+    nome: "Mouse Gamer Logitech G203",
+    preco: 29.99,
+    descricao: "Mouse gamer com sensor de alta precisão.",
+    estoque: 50,
+    jogo: null,
+    ItemEletronico: {
+      fabricante: "Logitech",
+      tipo: "Acessório",
+    },
+    pedidos: ["A004", "A004", "A004"],
+  },
+  {
+    nome: "The Legend of Zelda: Breath of the Wild",
+    preco: 59.99,
+    descricao: "Jogo de aventura em mundo aberto da Nintendo.",
+    estoque: 8,
+    jogo: {
+      desenvolvedora: "Nintendo",
+      dataLancamento: new Date("2017-03-03"),
+      plataforma: "Switch",
+      generos: [{ nome: "Aventura" }, { nome: "RPG" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A005"],
+  },
+  {
+    nome: "iPad 10ª Geração",
+    preco: 999.99,
+    descricao: "Tablet Apple com tela de 10.9 polegadas.",
+    estoque: 5,
+    jogo: null,
+    ItemEletronico: {
+      fabricante: "Apple",
+      tipo: "Tablet",
+    },
+    pedidos: ["A006"],
+  },
+  {
+    nome: "Red Dead Redemption 2",
+    preco: 59.99,
+    descricao: "Jogo de mundo aberto no Velho Oeste da Rockstar.",
+    estoque: 12,
+    jogo: {
+      desenvolvedora: "Rockstar Games",
+      dataLancamento: new Date("2018-10-26"),
+      plataforma: "Xbox One",
+      generos: [{ nome: "Ação" }, { nome: "Aventura" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A007", "A007"],
+  },
+  {
+    nome: 'Monitor Samsung 24"',
+    preco: 249.99,
+    descricao: "Monitor LED Full HD de 24 polegadas.",
+    estoque: 7,
+    jogo: null,
+    ItemEletronico: {
+      fabricante: "Samsung",
+      tipo: "Periférico",
+    },
+    pedidos: ["A008"],
+  },
+  {
+    nome: "Half-Life: Alyx",
+    preco: 59.99,
+    descricao: "Jogo de realidade virtual da Valve.",
+    estoque: 10,
+    jogo: {
+      desenvolvedora: "Valve",
+      dataLancamento: new Date("2020-03-23"),
+      plataforma: "PC",
+      generos: [{ nome: "FPS" }, { nome: "VR" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A009"],
+  },
+  {
+    nome: "Controle Xbox Elite",
+    preco: 299.99,
+    descricao: "Controle premium para Xbox com peças customizáveis.",
+    estoque: 6,
+    jogo: null,
+    ItemEletronico: {
+      fabricante: "Microsoft",
+      tipo: "Acessório",
+    },
+    pedidos: ["A010"],
+  },
+  {
+    nome: "Elden Ring",
+    preco: 59.99,
+    descricao: "RPG de ação em mundo aberto da FromSoftware.",
+    estoque: 9,
+    jogo: {
+      desenvolvedora: "FromSoftware",
+      dataLancamento: new Date("2022-02-25"),
+      plataforma: "PlayStation 5",
+      generos: [{ nome: "RPG" }, { nome: "Ação" }],
+    },
+    ItemEletronico: null,
+    pedidos: ["A011"],
+  },
+  {
+    nome: "Produto Indefinido",
+    preco: 0,
+    descricao: "Produto genérico sem classificação.",
+    estoque: 0,
+    jogo: null,
+    ItemEletronico: null,
+    pedidos: ["A012"],
+  },
+];
+
+export const ordersFakeData: Pedido[] = [
+  {
+    id: crypto.randomUUID(),
+    cliente: {
+      cpf: "123.456.789-00",
+      telefone: "11999999999",
+      nome: "João da Silva",
+      email: "joao.silva@email.com",
+      rua: "Rua das Flores",
+      cidade: "São Paulo",
+      numeroCasa: 101,
+    },
+    produtosPedido: [
+      {
+        id: "PP001",
+        quantidade: 1,
+        subTotal: 299.99,
+        produto: {
+          nome: "The Last of Us Part II",
+          preco: 299.99,
+          descricao: "Jogo de ação e aventura da Naughty Dog.",
+          estoque: 10,
+          jogo: {
+            desenvolvedora: "Naughty Dog",
+            dataLancamento: new Date("2020-06-19"),
+            plataforma: "PlayStation 4",
+            generos: [{ nome: "Ação" }, { nome: "Aventura" }],
+          },
+          ItemEletronico: null,
+          pedidos: ["PED001"],
+        },
+      },
+    ],
+    valorTotal: 299.99,
+    status: Status.DELIVERED,
+    data: new Date("2025-05-01"),
+  },
+  {
+    id: crypto.randomUUID(),
+    cliente: {
+      cpf: "987.654.321-11",
+      telefone: "21988888888",
+      nome: "Maria Oliveira",
+      email: "maria.oliveira@email.com",
+      rua: "Av. Central",
+      cidade: "Rio de Janeiro",
+      numeroCasa: 55,
+    },
+    produtosPedido: [
+      {
+        id: "PP002",
+        quantidade: 2,
+        subTotal: 199.98,
+        produto: {
+          nome: "Controle DualShock 4",
+          preco: 99.99,
+          descricao: "Controle sem fio da Sony para PS4.",
+          estoque: 25,
+          jogo: null,
+          ItemEletronico: {
+            fabricante: "Sony",
+            tipo: "Controle DualShock 4",
+          },
+          pedidos: ["PED002"],
+        },
+      },
+      {
+        id: "PP003",
+        quantidade: 1,
+        subTotal: 59.99,
+        produto: {
+          nome: "Elden Ring",
+          preco: 59.99,
+          descricao: "RPG de ação da FromSoftware.",
+          estoque: 9,
+          jogo: {
+            desenvolvedora: "FromSoftware",
+            dataLancamento: new Date("2022-02-25"),
+            plataforma: "PlayStation 5",
+            generos: [{ nome: "RPG" }, { nome: "Ação" }],
+          },
+          ItemEletronico: null,
+          pedidos: ["PED002"],
+        },
+      },
+    ],
+    valorTotal: 259.97,
+    status: Status.SHIPPING,
+    data: new Date("2025-05-05"),
+  },
+  {
+    id: crypto.randomUUID(),
+    cliente: {
+      cpf: "456.123.789-77",
+      telefone: "11912345678",
+      nome: "Carlos Mendes",
+      email: "carlos.mendes@email.com",
+      rua: "Rua do Sol",
+      cidade: "Curitiba",
+      numeroCasa: 200,
+    },
+    produtosPedido: [
+      {
+        id: "PP004",
+        quantidade: 1,
+        subTotal: 249.99,
+        produto: {
+          nome: 'Monitor Samsung 24"',
+          preco: 249.99,
+          descricao: "Monitor LED Full HD 24 polegadas.",
+          estoque: 7,
+          jogo: null,
+          ItemEletronico: {
+            fabricante: "Samsung",
+            tipo: 'Monitor 24"',
+          },
+          pedidos: ["PED003"],
+        },
+      },
+    ],
+    valorTotal: 249.99,
+    status: Status.CANCELED,
+    data: new Date("2025-05-03"),
   },
 ];

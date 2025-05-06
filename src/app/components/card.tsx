@@ -4,6 +4,7 @@ import Bag from "@/../public/bag.svg";
 import Box from "@/../public/box.svg";
 import Order from "@/../public/order.svg";
 import { DateFilterContext } from "@/context/date-filter-context";
+import { Pedido } from "@/types/schema";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import { useContext } from "react";
@@ -12,7 +13,7 @@ import { twMerge } from "tailwind-merge";
 interface CardProps {
   icon: "bag" | "box" | "order";
   content: string;
-  data: Order[];
+  data: Pedido[];
 }
 
 export default function Card({ icon, content, data }: CardProps) {

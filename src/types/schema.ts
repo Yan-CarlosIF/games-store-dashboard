@@ -1,10 +1,36 @@
-enum Status {
-  CANCELED,
-  SHIPPING,
-  DELIVERED,
+export type Jogo = {
+  desenvolvedora: string;
+  dataLancamento: Date;
+  plataforma: string;
+  generos: Genero[];
+};
+
+export type ItemEletronico = {
+  fabricante: string;
+  tipo: string;
+};
+
+export type Genero = {
+  nome: String;
+};
+
+export type Produto = {
+  nome: String;
+  preco: number;
+  descricao: String;
+  estoque: number;
+  jogo: Jogo | null;
+  ItemEletronico: ItemEletronico | null;
+  pedidos: string[];
+};
+
+export enum Status {
+  CANCELED = "Cancelado",
+  SHIPPING = "Em envio",
+  DELIVERED = "Entregue",
 }
 
-type Cliente = {
+export type Cliente = {
   cpf: string;
   telefone: string;
   nome: string;
@@ -14,20 +40,18 @@ type Cliente = {
   numeroCasa: number;
 };
 
-type Produto = {
+export type ProdutoPedido = {
   id: string;
   quantidade: number;
   subTotal: number;
-  idPedido: string;
-  idProduto: string;
+  produto: Produto;
 };
 
-type Order = {
+export type Pedido = {
   cliente: Cliente;
-  produtos: Produto[];
+  produtosPedido: ProdutoPedido[];
   id: string;
   valorTotal: number;
   status: Status;
   data: Date;
-  cpfCliente: string;
 };

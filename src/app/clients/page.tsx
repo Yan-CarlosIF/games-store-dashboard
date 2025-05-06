@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import ClientsHeader from "./components/clients-header";
-import SortButton from "./components/sort-button";
+import SortButton from "../components/sort-button";
 import {
   Table,
   TableBody,
@@ -15,9 +15,28 @@ import { Separator } from "@/components/ui/separator";
 import { twMerge } from "tailwind-merge";
 import ClientsFooter from "./components/clients-footer";
 
+const filterOptions = [
+  {
+    value: "mais-recentes",
+    label: "Mais recentes",
+  },
+  {
+    value: "mais-antigos",
+    label: "Mais antigos",
+  },
+  {
+    value: "mais-compras",
+    label: "Mais compras",
+  },
+  {
+    value: "menos-compras",
+    label: "Menos compras",
+  },
+];
+
 export default function Clients() {
   const firstEightClients = clientsFakeData.slice(0, 7);
-  
+
   return (
     <>
       <div className="flex flex-col">
@@ -41,10 +60,10 @@ export default function Clients() {
                 className="pl-10 focus-visible:border-green-500 focus-visible:ring-green-200"
               />
             </div>
-            <SortButton />
+            <SortButton options={filterOptions} />
           </div>
         </div>
-        <Table className="mt-6">
+        <Table className="mt-6 h-full">
           <TableHeader>
             <TableRow>
               <TableHead className="text-muted-foreground pl-10">

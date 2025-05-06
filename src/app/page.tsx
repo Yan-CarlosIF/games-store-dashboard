@@ -3,14 +3,15 @@ import Card from "./components/card";
 import DatePicker from "./components/date-picker";
 import DateFilterProvider from "@/context/date-filter-provider";
 import Charts from "./components/charts";
+import { Pedido } from "@/types/schema";
 
 export default async function Home() {
-  const orders = (await api.get<Order[]>("/order/get")).data;
+  const orders = (await api.get<Pedido[]>("/order/get")).data;
   const ordersDelivered = (
-    await api.get<Order[]>("/order/get", { params: { delivered: "true" } })
+    await api.get<Pedido[]>("/order/get", { params: { delivered: "true" } })
   ).data;
   const ordersCanceled = (
-    await api.get<Order[]>("/order/get", { params: { canceled: "true" } })
+    await api.get<Pedido[]>("/order/get", { params: { canceled: "true" } })
   ).data;
 
   return (
