@@ -13,6 +13,7 @@ export default function Navbar() {
 
       <div className="mt-20 flex w-full flex-col items-center gap-2">
         <Label icon="house" url="/" content="Dashboard" />
+        <Label icon="box" url="/products" content="Produtos" />
         <Label icon="logs" url="/orders" content="Pedidos" />
         <Label icon="users" url="/clients" content="Clientes" />
       </div>

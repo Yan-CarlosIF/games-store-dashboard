@@ -7,6 +7,7 @@
   --font-poppins: var(--font-poppins);
   --font-barlow: var(--font-barlow);
   --color-black-200: #333333;
+  --color-green-label: #16c098;
 }
 
 @theme inline {
