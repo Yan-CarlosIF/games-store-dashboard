@@ -25,9 +25,9 @@ export type Produto = {
 };
 
 export enum Status {
-  CANCELED = "Cancelado",
-  SHIPPING = "Em envio",
-  DELIVERED = "Entregue",
+  CANCELED = "CANCELED",
+  SHIPPING = "SHIPPING",
+  DELIVERED = "DELIVERED",
 }
 
 export type Cliente = {
@@ -53,5 +53,5 @@ export type Pedido = {
   id: string;
   valorTotal: number;
   status: Status;
-  data: Date;
+  data: string;
 };

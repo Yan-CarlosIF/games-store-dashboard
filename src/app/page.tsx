@@ -1,18 +1,13 @@
-import { api } from "@/lib/axios";
 import Card from "./components/card";
 import DatePicker from "./components/date-picker";
 import DateFilterProvider from "@/context/date-filter-provider";
 import Charts from "./components/charts";
-import { Pedido } from "@/types/schema";
+import { getOrders } from "@/api/get-orders";
 
 export default async function Home() {
-  const orders = (await api.get<Pedido[]>("/order/get")).data;
-  const ordersDelivered = (
-    await api.get<Pedido[]>("/order/get", { params: { delivered: "true" } })
-  ).data;
-  const ordersCanceled = (
-    await api.get<Pedido[]>("/order/get", { params: { canceled: "true" } })
-  ).data;
+  const orders = await getOrders({});
+  const ordersDelivered = await getOrders({ delivered: "true" });
+  const ordersCanceled = await getOrders({ canceled: "true" });
 
   return (
     <DateFilterProvider>
@@ -31,7 +26,7 @@ export default async function Home() {
         <Card icon="order" content="Pedidos Cancelados" data={ordersCanceled} />
         <Card icon="bag" content="Receita Total" data={orders} />
       </div>
-      <Charts />
+      <Charts orders={orders} />
     </DateFilterProvider>
   );
 }

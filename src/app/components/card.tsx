@@ -4,7 +4,9 @@ import Bag from "@/../public/bag.svg";
 import Box from "@/../public/box.svg";
 import Order from "@/../public/order.svg";
 import { DateFilterContext } from "@/context/date-filter-context";
-import { Pedido } from "@/types/schema";
+import { Pedido, Status } from "@/types/schema";
+import { formatMoney } from "@/utils/formatMoney";
+import { differenceInDays } from "date-fns";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import { useContext } from "react";
@@ -32,32 +34,27 @@ export default function Card({ icon, content, data }: CardProps) {
         })
       : data;
 
-  const ordersMadeThisMonth = data.filter(
-    (order) => order.data.getMonth() === new Date().getMonth(),
-  );
-
-  const totalRevenue = ordersMadeThisMonth.reduce(
-    (total: number, order) => total + order.valorTotal,
-    0,
-  );
+  const totalRevenue =
+    dateFrom && dateTo
+      ? ordersMadeOnDateFilter.reduce(
+          (total: number, order) =>
+            order.status === "DELIVERED" ? total + order.valorTotal : total,
+          0,
+        )
+      : data.reduce((total: number, order) => total + order.valorTotal, 0);
 
   let percentageOrdersMadeThisMonth = 0;
 
-  if (icon !== "bag") {
-    if (ordersMadeThisMonth.length > 0) {
-      percentageOrdersMadeThisMonth =
-        (ordersMadeOnDateFilter.length / ordersMadeThisMonth.length) * 100;
-    } else {
-      const totalFilteredRevenue = ordersMadeOnDateFilter.reduce(
-        (total: number, order) => total + order.valorTotal,
-        0,
-      );
+  let daysBetweenDates =
+    dateFrom && dateTo && Math.abs(differenceInDays(dateFrom, dateTo));
 
-      percentageOrdersMadeThisMonth =
-        totalFilteredRevenue > 0
-          ? (totalRevenue / totalFilteredRevenue) * 100
-          : 0;
-    }
+  if (daysBetweenDates !== undefined && daysBetweenDates > 0) {
+    percentageOrdersMadeThisMonth =
+      daysBetweenDates === 0
+        ? 0
+        : (ordersMadeOnDateFilter.length /
+            (data.length - ordersMadeOnDateFilter.length)) *
+          100;
   }
 
   return (
@@ -66,9 +63,11 @@ export default function Card({ icon, content, data }: CardProps) {
         <div className="relative flex size-22 items-center rounded-full bg-green-400/15 pl-4">
           <Image src={src} alt="" />
         </div>
-        <div className="mt-[-10px] flex flex-col">
-          <h1 className="font-barlow text-[46px] font-bold text-[#464255]">
-            {icon !== "bag" ? data.length : `$${totalRevenue}`}
+        <div className="flex flex-col">
+          <h1 className="font-barlow mb-2 text-4xl font-bold overflow-ellipsis text-[#464255]">
+            {icon !== "bag"
+              ? `${dateFrom && dateTo ? ordersMadeOnDateFilter.length : data.length}`
+              : `${formatMoney(totalRevenue)}`}
           </h1>
           <span className="font-barlow text-black-200 text-sm leading-2">
             {content}
@@ -78,6 +77,10 @@ export default function Card({ icon, content, data }: CardProps) {
               className={twMerge(
                 "flex size-5 items-center justify-center rounded-full bg-green-400/15",
                 percentageOrdersMadeThisMonth < 0 && "bg-red-500/15",
+                content === "Pedidos Cancelados" && "bg-red-500/15",
+                percentageOrdersMadeThisMonth <= 0 &&
+                  content === "Pedidos Cancelados" &&
+                  "bg-green-400/15",
               )}
             >
               <ArrowUp
@@ -86,10 +89,20 @@ export default function Card({ icon, content, data }: CardProps) {
                   "text-green-700",
                   percentageOrdersMadeThisMonth < 0 &&
                     "rotate-180 text-red-700",
+                  content === "Pedidos Cancelados" &&
+                    percentageOrdersMadeThisMonth > 0 &&
+                    "text-red-700",
+                  percentageOrdersMadeThisMonth <= 0 &&
+                    content === "Pedidos Cancelados" &&
+                    "rotate-180 text-green-700",
                 )}
               />
             </div>
-            {percentageOrdersMadeThisMonth}% (30 dias)
+            {percentageOrdersMadeThisMonth.toFixed(0)}%{" "}
+            {daysBetweenDates !== undefined &&
+              `(${daysBetweenDates === 0 ? 1 : daysBetweenDates} ${
+                daysBetweenDates === 0 ? "dia" : "dias"
+              })`}
           </span>
         </div>
       </div>

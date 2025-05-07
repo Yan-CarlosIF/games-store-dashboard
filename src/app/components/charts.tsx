@@ -1,5 +1,6 @@
 "use client";
 
+import { getMostSelledProducts } from "@/api/get-most-selled-products";
 import {
   Card,
   CardContent,
@@ -14,8 +15,11 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
+import { DateFilterContext } from "@/context/date-filter-context";
+import { Pedido, Produto } from "@/types/schema";
 import { Months } from "@/types/utils";
 import { TrendingUp } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 import {
   Area,
   AreaChart,
@@ -68,30 +72,60 @@ const pieChartConfig = {
   },
 } satisfies ChartConfig;
 
-const chartData = [
-  { month: "Janeiro", Pedidos: 186 },
-  { month: "Fevereiro", Pedidos: 305 },
-  { month: "Março", Pedidos: 237 },
-  { month: "Abril", Pedidos: 170 },
-  { month: "Maio", Pedidos: 209 },
-  { month: "Junho", Pedidos: 214 },
-];
+type ChartsProps = {
+  orders: Pedido[];
+};
 
-const pieChartData = [
-  { product: "Playstation 5", pedidos: 275, fill: colors[0] },
-  { product: "Red Dead Redemption 2", pedidos: 200, fill: colors[1] },
-  { product: "Xbox Series X", pedidos: 287, fill: colors[2] },
-  { product: "NBA 2k", pedidos: 173, fill: colors[3] },
-  { product: "Dualshock 5", pedidos: 190, fill: colors[4] },
-];
-
-export default function Charts() {
+export default function Charts({ orders }: ChartsProps) {
+  const [mostSoldProducts, setMostSoldProducts] = useState<Produto[]>([]);
+  const { date } = useContext(DateFilterContext);
   const actualMonth = new Date().getMonth();
+
   const sixMonthsBefore =
-    actualMonth - 6 >= 0
+    actualMonth - 5 >= 0
       ? Months[actualMonth - 5]
       : Months[12 - (actualMonth - 5) * -1];
-  console.log(Months[actualMonth]);
+
+  const dateFrom = date?.from;
+  const dateTo = date?.to;
+
+  const chartData = Array.from({ length: 6 }, (_, i) => {
+    const month = (actualMonth - 5 + i + 12) % 12;
+    return {
+      month: Months[month],
+      Pedidos: orders.filter(
+        (order) => new Date(order.data).getMonth() === month,
+      ).length,
+    };
+  });
+
+  const totalOrdersWithoutThisMonth = chartData.reduce(
+    (total: number, order) =>
+      order.month !== Months[actualMonth] ? total + order.Pedidos : total,
+    0,
+  );
+
+  const percetageOfGrowthThisMonth = (
+    (chartData[chartData.length - 1].Pedidos / totalOrdersWithoutThisMonth) *
+    100
+  ).toFixed(1);
+
+  useEffect(() => {
+    getMostSelledProducts({ limit: 5, dateFrom, dateTo }).then((products) =>
+      setMostSoldProducts(products),
+    );
+  }, [dateFrom, dateTo]);
+
+  const pieChartData = Array.from(
+    { length: mostSoldProducts.length },
+    (_, i) => {
+      return {
+        product: mostSoldProducts[i].nome,
+        pedidos: mostSoldProducts[i].pedidos.length,
+        fill: colors[i],
+      };
+    },
+  );
 
   return (
     <div className="mt-10 flex items-center gap-10">
@@ -154,7 +188,8 @@ export default function Charts() {
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 leading-none font-medium">
-                Crescimento de 5,2% neste mês <TrendingUp className="h-4 w-4" />
+                Crescimento de {percetageOfGrowthThisMonth}% neste mês{" "}
+                <TrendingUp className="size-4" />
               </div>
               <div className="text-muted-foreground flex items-center gap-2 leading-none">
                 {sixMonthsBefore} - {Months[actualMonth]}
@@ -215,17 +250,14 @@ export default function Charts() {
                             y={viewBox.cy}
                             className="fill-foreground text-3xl font-bold"
                           >
-                            {pieChartData.reduce(
-                              (total: number, pedido) => total + pedido.pedidos,
-                              0,
-                            )}
+                            {pieChartData.length}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 24}
                             className="fill-muted-foreground"
                           >
-                            Pedidos
+                            Produtos
                           </tspan>
                         </text>
                       );
@@ -235,6 +267,11 @@ export default function Charts() {
               </Pie>
             </PieChart>
           </ChartContainer>
+          {pieChartData.length === 0 && (
+            <span className="font-barlow text-black-200 mt-[-100px] flex justify-center text-2xl font-semibold">
+              Nenhum produto comprado
+            </span>
+          )}
         </CardContent>
       </Card>
     </div>
