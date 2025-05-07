@@ -433,7 +433,7 @@ export const ordersFakeData: Pedido[] = [
         quantidade: 1,
         subTotal: 249.99,
         produto: {
-          nome: 'Monitor Samsung 24"',
+          nome: "Monitor Samsung 24",
           preco: 249.99,
           descricao: "Monitor LED Full HD 24 polegadas.",
           estoque: 7,

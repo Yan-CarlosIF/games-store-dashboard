@@ -39,7 +39,7 @@ export default function ProductCard({ product }: ProductCartProps) {
       </td>
       <td className="w-[12.5%]">
         <div className="flex items-center gap-4">
-          <div className="flex w-24 items-center justify-center rounded-sm bg-gray-300/30 px-2 py-2 text-xs font-semibold text-gray-600/80">
+          <div className="flex w-24 items-center justify-center rounded-sm bg-gray-300/30 px-2 py-2.5 text-xs font-semibold text-gray-600/80">
             {product.jogo ? "Jogo" : "Eletrônico"}
           </div>
           <DetailedProductModal product={product} />

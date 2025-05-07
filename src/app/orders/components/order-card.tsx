@@ -1,5 +1,7 @@
 import { Pedido } from "@/types/schema";
 import { formatMoney } from "@/utils/formatMoney";
+import OrderStatus from "./order-status";
+import OrderDetailsModal from "./order-details-modal";
 
 interface OrderCardProps {
   order: Pedido;
@@ -18,9 +20,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <h1 className="text-left text-sm">{order.cliente.nome}</h1>
       </td>
       <td>
-        <div className="flex w-24 items-center justify-center rounded-sm bg-gray-300/30 px-2 py-2 text-xs font-semibold text-gray-600/80">
-          Pago
-        </div>
+        <OrderStatus status={order.status} />
       </td>
       <td className="w-[12.5%]">
         <div className="flex items-center gap-4">
@@ -29,7 +29,7 @@ export default function OrderCard({ order }: OrderCardProps) {
               {formatMoney(order.valorTotal)}
             </h1>
           </div>
-          {/* <DetailedProductModal product={product} /> */}
+          <OrderDetailsModal order={order} />
         </div>
       </td>
     </tr>

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -61,7 +59,7 @@ export default function DetailedProductModal({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="cursor-pointer">
+        <Button variant="outline" className="cursor-pointer bg-transparent">
           <Ellipsis />
         </Button>
       </PopoverTrigger>
