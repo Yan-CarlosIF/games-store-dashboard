@@ -1,5 +1,6 @@
-import { Status } from "@/types/schema";
 import { twMerge } from "tailwind-merge";
+
+import { Status } from "@/types/schema";
 
 type OrderStatusProps = {
   status: Status;

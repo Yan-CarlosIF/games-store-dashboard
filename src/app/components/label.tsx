@@ -1,9 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+
+import { Button } from "@/components/ui/button";
 
 interface LabelProps {
   icon: IconName;

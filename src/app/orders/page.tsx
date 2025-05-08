@@ -1,5 +1,5 @@
 import { ArrowUpDown } from "lucide-react";
-import SortButton from "../components/sort-button";
+
 import {
   Pagination,
   PaginationContent,
@@ -10,6 +10,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ordersFakeData } from "@/utils/fake-table-data";
+
+import SortButton from "../components/sort-button";
 import OrderCard from "./components/order-card";
 
 const filterOptions = [

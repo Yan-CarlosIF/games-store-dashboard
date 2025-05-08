@@ -1,3 +1,5 @@
+import { Ellipsis } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -5,7 +7,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Produto } from "@/types/schema";
-import { Ellipsis } from "lucide-react";
 
 interface DetailedProductModalProps {
   product: Produto;
@@ -14,7 +15,7 @@ interface DetailedProductModalProps {
 export default function DetailedProductModal({
   product,
 }: DetailedProductModalProps) {
-  const { jogo, ItemEletronico } = product;
+  const { jogo, ItemEletronico, generos } = product;
 
   const renderGame = () => {
     if (jogo) {
@@ -29,11 +30,11 @@ export default function DetailedProductModal({
           </p>
           <p className="text-sm text-gray-800">
             <span className="font-semibold">Data de lancamento:</span>{" "}
-            {jogo.dataLancamento.toLocaleDateString()}
+            {new Date(jogo.dataLancamento).toLocaleDateString("pt-BR")}
           </p>
           <p className="text-sm text-gray-800">
             <span className="font-semibold">Generos:</span>{" "}
-            {jogo.generos.map((genero) => genero.nome).join(", ")}
+            {generos?.map((genero) => genero.nome).join(", ")}
           </p>
         </>
       );

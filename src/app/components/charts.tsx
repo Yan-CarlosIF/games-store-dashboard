@@ -1,23 +1,5 @@
 "use client";
 
-import { getMostSelledProducts } from "@/api/get-most-selled-products";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import { DateFilterContext } from "@/context/date-filter-context";
-import { Pedido, Produto } from "@/types/schema";
-import { Months } from "@/types/utils";
 import { TrendingUp } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -30,6 +12,25 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
+import { getMostSelledProducts } from "@/api/get-most-selled-products";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { DateFilterContext } from "@/context/date-filter-context";
+import { Pedido, Produto } from "@/types/schema";
+import { Months } from "@/types/utils";
 
 const chartConfig = {
   Pedidos: {

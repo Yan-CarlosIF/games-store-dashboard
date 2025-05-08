@@ -1,8 +1,9 @@
-import Card from "./components/card";
-import DatePicker from "./components/date-picker";
-import DateFilterProvider from "@/context/date-filter-provider";
-import Charts from "./components/charts";
 import { getOrders } from "@/api/get-orders";
+import DateFilterProvider from "@/context/date-filter-provider";
+
+import Card from "./components/card";
+import Charts from "./components/charts";
+import DatePicker from "./components/date-picker";
 
 export default async function Home() {
   const orders = await getOrders({});

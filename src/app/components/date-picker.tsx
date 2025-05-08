@@ -1,15 +1,16 @@
 "use client";
 
+import { format } from "date-fns";
+import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
+import { useContext, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Calendar as CalendarIcon, ChevronDown } from "lucide-react";
-import { useContext, useState } from "react";
-import { format } from "date-fns";
-import { twMerge } from "tailwind-merge";
 import { DateFilterContext } from "@/context/date-filter-context";
 
 export default function DatePicker() {

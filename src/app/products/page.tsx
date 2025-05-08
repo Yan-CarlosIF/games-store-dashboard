@@ -1,16 +1,10 @@
 import { ArrowUpDown } from "lucide-react";
-import ProductCard from "./components/product-card";
-import { productsFakeData } from "@/utils/fake-table-data";
+
+import { getProducts } from "@/api/get-products";
+
 import SortButton from "../components/sort-button";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import ProductsPagination from "./components/pagination";
+import ProductCard from "./components/product-card";
 
 const filterOptions = [
   {
@@ -31,8 +25,20 @@ const filterOptions = [
   },
 ];
 
-export default function Page() {
-  const firstSixProducts = productsFakeData.slice(0, 6);
+type SearchParams = Promise<{ ["offset"]: string | undefined }>;
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const products = await getProducts();
+
+  const sParams = await searchParams;
+
+  const offset = sParams.offset ? parseInt(sParams.offset) : 0;
+
+  const firstSixProducts = products.slice(offset, offset + 6);
 
   return (
     <>
@@ -44,7 +50,7 @@ export default function Page() {
           </h1>
           <SortButton options={filterOptions} />
         </div>
-        <table className="mt-8 w-full h-full">
+        <table className="mt-8 h-full w-full">
           <thead className="text-sm text-gray-400">
             <tr className="flex w-full bg-gray-200/20 px-14">
               <th className="w-[21%] py-2.5 pl-20 text-left text-sm">
@@ -77,32 +83,11 @@ export default function Page() {
             <tr>
               <td className="flex items-center justify-between px-10">
                 <span className="text-sm text-gray-400">
-                  Mostrando 1 a 6 de 300
+                  Mostrando {offset + 1} a{" "}
+                  {offset + 6 > products.length ? products.length : offset + 6}{" "}
+                  de {products.length} produtos
                 </span>
-                <Pagination className="mx-0 flex w-fit">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#" isActive>
-                        2
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext href="#" />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
+                <ProductsPagination limit={Math.ceil(products.length / 6)} />
               </td>
             </tr>
           </tfoot>

@@ -1,6 +1,7 @@
-import { formatMoney } from "@/utils/formatMoney";
-import DetailedProductModal from "./datailed-product-model";
 import { Produto } from "@/types/schema";
+import { formatMoney } from "@/utils/formatMoney";
+
+import DetailedProductModal from "./datailed-product-model";
 
 interface ProductCartProps {
   product: Produto;

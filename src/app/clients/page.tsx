@@ -1,7 +1,8 @@
-import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import ClientsHeader from "./components/clients-header";
-import SortButton from "../components/sort-button";
+import { twMerge } from "tailwind-merge";
+
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -11,9 +12,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { clientsFakeData } from "@/utils/fake-table-data";
-import { Separator } from "@/components/ui/separator";
-import { twMerge } from "tailwind-merge";
+
+import SortButton from "../components/sort-button";
 import ClientsFooter from "./components/clients-footer";
+import ClientsHeader from "./components/clients-header";
 
 const filterOptions = [
   {

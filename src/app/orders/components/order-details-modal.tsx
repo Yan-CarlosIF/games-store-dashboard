@@ -1,7 +1,8 @@
-import { Popover, PopoverContent } from "@/components/ui/popover";
 import { PopoverTrigger } from "@radix-ui/react-popover";
-import { Button } from "@/components/ui/button";
 import { ChevronDown, Ellipsis, UserRound } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent } from "@/components/ui/popover";
 import { Pedido } from "@/types/schema";
 
 type OrderDetailsModalProps = {

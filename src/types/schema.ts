@@ -1,8 +1,7 @@
 export type Jogo = {
   desenvolvedora: string;
-  dataLancamento: Date;
+  dataLancamento: string;
   plataforma: string;
-  generos: Genero[];
 };
 
 export type ItemEletronico = {
@@ -11,16 +10,17 @@ export type ItemEletronico = {
 };
 
 export type Genero = {
-  nome: String;
+  nome: string;
 };
 
 export type Produto = {
-  nome: String;
+  nome: string;
   preco: number;
-  descricao: String;
+  descricao: string;
   estoque: number;
   jogo: Jogo | null;
   ItemEletronico: ItemEletronico | null;
+  generos?: Genero[];
   pedidos: string[];
 };
 

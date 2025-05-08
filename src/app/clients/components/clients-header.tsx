@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   ArrowUp,
   UserRoundCheck,
   UserRoundPlus,
   UsersRound,
 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export default function ClientsHeader() {
   return (

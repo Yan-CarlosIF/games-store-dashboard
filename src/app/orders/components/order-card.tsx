@@ -1,7 +1,8 @@
 import { Pedido } from "@/types/schema";
 import { formatMoney } from "@/utils/formatMoney";
-import OrderStatus from "./order-status";
+
 import OrderDetailsModal from "./order-details-modal";
+import OrderStatus from "./order-status";
 
 interface OrderCardProps {
   order: Pedido;
@@ -14,7 +15,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         <h1 className="text-left text-sm text-nowrap">{order.id}</h1>
       </td>
       <td>
-        <h1 className="text-left text-sm">{`0${order.data.getDay()}/0${order.data.getMonth()}/${order.data.getFullYear()}`}</h1>
+        <h1 className="text-left text-sm">{new Date(order.data).toLocaleDateString("pt-BR")}</h1>
       </td>
       <td className="w-[8%]">
         <h1 className="text-left text-sm">{order.cliente.nome}</h1>

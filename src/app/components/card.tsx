@@ -1,16 +1,17 @@
 "use client";
 
-import Bag from "@/../public/bag.svg";
-import Box from "@/../public/box.svg";
-import Order from "@/../public/order.svg";
-import { DateFilterContext } from "@/context/date-filter-context";
-import { Pedido, Status } from "@/types/schema";
-import { formatMoney } from "@/utils/formatMoney";
 import { differenceInDays } from "date-fns";
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import { useContext } from "react";
 import { twMerge } from "tailwind-merge";
+
+import Bag from "@/../public/bag.svg";
+import Box from "@/../public/box.svg";
+import Order from "@/../public/order.svg";
+import { DateFilterContext } from "@/context/date-filter-context";
+import { Pedido } from "@/types/schema";
+import { formatMoney } from "@/utils/formatMoney";
 
 interface CardProps {
   icon: "bag" | "box" | "order";
@@ -45,7 +46,7 @@ export default function Card({ icon, content, data }: CardProps) {
 
   let percentageOrdersMadeThisMonth = 0;
 
-  let daysBetweenDates =
+  const daysBetweenDates =
     dateFrom && dateTo && Math.abs(differenceInDays(dateFrom, dateTo));
 
   if (daysBetweenDates !== undefined && daysBetweenDates > 0) {
@@ -56,6 +57,13 @@ export default function Card({ icon, content, data }: CardProps) {
             (data.length - ordersMadeOnDateFilter.length)) *
           100;
   }
+
+  const percentageTotalRevenue = daysBetweenDates
+    ? (totalRevenue /
+        (data.reduce((total: number, order) => total + order.valorTotal, 0) -
+          totalRevenue)) *
+      100
+    : 0;
 
   return (
     <div className="flex h-[174px] w-1/4 items-center justify-center rounded-[14px] bg-white shadow-lg">
@@ -98,7 +106,10 @@ export default function Card({ icon, content, data }: CardProps) {
                 )}
               />
             </div>
-            {percentageOrdersMadeThisMonth.toFixed(0)}%{" "}
+            {content === "Receita Total"
+              ? percentageTotalRevenue.toFixed(0)
+              : percentageOrdersMadeThisMonth.toFixed(0)}
+            %{" "}
             {daysBetweenDates !== undefined &&
               `(${daysBetweenDates === 0 ? 1 : daysBetweenDates} ${
                 daysBetweenDates === 0 ? "dia" : "dias"

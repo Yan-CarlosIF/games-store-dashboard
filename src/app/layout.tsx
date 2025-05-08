@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { Poppins, Barlow } from "next/font/google";
 import "./globals.css";
+
+import type { Metadata } from "next";
+import { Barlow,Poppins } from "next/font/google";
 import { ReactNode } from "react";
 
 const poppins = Poppins({
