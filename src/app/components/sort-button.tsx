@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useRouter, useSearchParams } from "next/navigation";
+
 interface SortButtonProps {
   options: {
     value: string;
@@ -27,8 +29,22 @@ interface SortButtonProps {
 }
 
 export default function SortButton({ options, className }: SortButtonProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value !== "") {
+      params.set("sort", value);
+      router.push(`?${params.toString()}`);
+    } else {
+      params.delete("sort");
+      router.push(`?${params.toString()}`);
+    }
+  }, [value, router]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

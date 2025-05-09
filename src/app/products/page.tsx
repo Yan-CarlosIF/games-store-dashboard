@@ -8,12 +8,12 @@ import ProductCard from "./components/product-card";
 
 const filterOptions = [
   {
-    value: "mais-recentes",
-    label: "Mais recentes",
+    value: "mais-vendidos",
+    label: "Mais Vendidos",
   },
   {
-    value: "mais-antigos",
-    label: "Mais antigos",
+    value: "menos-vendidos",
+    label: "Menos Vendidos",
   },
   {
     value: "jogo",
@@ -21,11 +21,13 @@ const filterOptions = [
   },
   {
     value: "eletronico",
-    label: "Eletrônico",
+    label: "Item Eletrônico",
   },
 ];
 
-type SearchParams = Promise<{ ["offset"]: string | undefined }>;
+type Keys = "offset" | "sort";
+
+type SearchParams = Promise<{ [k in Keys]: string | undefined }>;
 
 export default async function Page({
   searchParams,
@@ -38,7 +40,27 @@ export default async function Page({
 
   const offset = sParams.offset ? parseInt(sParams.offset) : 0;
 
-  const firstSixProducts = products.slice(offset, offset + 6);
+  const sort = sParams.sort;
+
+  let filteredProducts = products;
+
+  if (sort === "mais-vendidos") {
+    filteredProducts.sort((a, b) => b.pedidos.length - a.pedidos.length);
+  } else if (sort === "menos-vendidos") {
+    filteredProducts.sort((a, b) => a.pedidos.length - b.pedidos.length);
+  } else if (sort === "jogo") {
+    filteredProducts = filteredProducts.filter((product) => product.jogo);
+  } else if (sort === "eletronico") {
+    filteredProducts = filteredProducts.filter(
+      (product) => product.jogo === null,
+    );
+  }
+
+  const firstSixProducts = sort
+    ? filteredProducts.slice(offset, offset + 6)
+    : products.slice(offset, offset + 6);
+
+  const productsLength = sort ? filteredProducts.length : products.length;
 
   return (
     <>
@@ -84,10 +106,10 @@ export default async function Page({
               <td className="flex items-center justify-between px-10">
                 <span className="text-sm text-gray-400">
                   Mostrando {offset + 1} a{" "}
-                  {offset + 6 > products.length ? products.length : offset + 6}{" "}
-                  de {products.length} produtos
+                  {offset + 6 > productsLength ? productsLength : offset + 6} de{" "}
+                  {filteredProducts.length} produtos
                 </span>
-                <ProductsPagination limit={Math.ceil(products.length / 6)} />
+                <ProductsPagination limit={Math.ceil(productsLength / 6)} />
               </td>
             </tr>
           </tfoot>
