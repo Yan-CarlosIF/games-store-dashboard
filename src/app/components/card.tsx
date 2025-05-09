@@ -66,13 +66,13 @@ export default function Card({ icon, content, data }: CardProps) {
     : 0;
 
   return (
-    <div className="flex h-[174px] w-1/4 items-center justify-center rounded-[14px] bg-white shadow-lg">
+    <div className="flex h-[174px] w-1/4 items-center justify-center overflow-hidden rounded-[14px] bg-white px-2 shadow-lg 2xl:px-0">
       <div className="flex gap-6">
-        <div className="relative flex size-22 items-center rounded-full bg-green-400/15 pl-4">
-          <Image src={src} alt="" />
+        <div className="relative flex size-18 items-center rounded-full bg-green-400/15 pl-4 2xl:size-22">
+          <Image src={src} className="size-12 2xl:size-14" alt="" />
         </div>
         <div className="flex flex-col">
-          <h1 className="font-barlow mb-2 text-4xl font-bold overflow-ellipsis text-[#464255]">
+          <h1 className="font-barlow mb-2 text-xl font-bold overflow-ellipsis text-[#464255] 2xl:text-4xl">
             {icon !== "bag"
               ? `${dateFrom && dateTo ? ordersMadeOnDateFilter.length : data.length}`
               : `${formatMoney(totalRevenue)}`}
