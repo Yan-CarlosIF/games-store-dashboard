@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { twMerge } from "tailwind-merge";
 
 import {
   Pagination,
@@ -13,7 +14,15 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export default function PaginationComponent({ limit }: { limit: number }) {
+type PaginationProps = {
+  limit: number;
+  className?: string;
+};
+
+export default function PaginationComponent({
+  limit,
+  className,
+}: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -46,7 +55,7 @@ export default function PaginationComponent({ limit }: { limit: number }) {
   };
 
   return (
-    <Pagination className="mx-0 flex w-fit">
+    <Pagination className={twMerge("mx-0 flex w-fit", className)}>
       <PaginationContent>
         <PaginationItem className="cursor-pointer" onClick={handleBackPage}>
           <PaginationPrevious />

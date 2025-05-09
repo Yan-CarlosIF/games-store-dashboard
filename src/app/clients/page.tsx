@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
+import { getClients } from "@/api/get-clients";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -11,20 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { clientsFakeData } from "@/utils/fake-table-data";
 
+import PaginationComponent from "../components/pagination";
 import SortButton from "../components/sort-button";
-import ClientsFooter from "./components/clients-footer";
 import ClientsHeader from "./components/clients-header";
 
 const filterOptions = [
   {
-    value: "mais-recentes",
-    label: "Mais recentes",
-  },
-  {
-    value: "mais-antigos",
-    label: "Mais antigos",
+    value: "ordem-alfabetica",
+    label: "Ordem alfabética",
   },
   {
     value: "mais-compras",
@@ -36,16 +32,54 @@ const filterOptions = [
   },
 ];
 
-export default function Clients() {
-  const firstEightClients = clientsFakeData.slice(0, 7);
+type Keys = "offset" | "sort" | "search";
+
+type SearchParams = Promise<{ [k in Keys]: string | undefined }>;
+
+export default async function Clients({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const params = await searchParams;
+
+  const offset = parseInt(params.offset ?? "0");
+  const sort = params.sort;
+  const search = params.search || "";
+
+  const clients = await getClients();
+
+  const filteredClients =
+    search !== ""
+      ? clients.filter((client) => {
+          if (client.nome.toLowerCase().includes(search.toLowerCase())) {
+            return client;
+          }
+        })
+      : clients;
+
+  if (sort === "mais-compras") {
+    filteredClients.sort((a, b) => b.pedidos.length - a.pedidos.length);
+  } else if (sort === "menos-compras") {
+    filteredClients.sort((a, b) => a.pedidos.length - b.pedidos.length);
+  } else if (sort === "ordem-alfabetica") {
+    filteredClients.sort((a, b) => a.nome.localeCompare(b.nome));
+  }
+
+  const firstEightClients =
+    sort || search
+      ? filteredClients.slice(offset, offset + 7)
+      : clients.slice(offset, offset + 7);
+
+  const clientsLength = sort ? filteredClients.length : clients.length;
 
   return (
     <>
       <div className="flex flex-col">
         <h1 className="text-black-200 ml-3 text-3xl font-semibold">Clientes</h1>
-        <ClientsHeader />
+        <ClientsHeader clients={clients} />
       </div>
-      <main className="mt-10 h-full w-full self-center rounded-3xl bg-white pt-10 shadow-xl">
+      <main className="mt-10 flex h-full w-full flex-col self-center rounded-3xl bg-white pt-10 shadow-xl">
         <div className="flex items-center justify-between px-10">
           <div className="flex flex-col">
             <h1 className="text-black-200 text-2xl font-bold">
@@ -65,7 +99,7 @@ export default function Clients() {
             <SortButton options={filterOptions} />
           </div>
         </div>
-        <Table className="mt-6 h-full">
+        <Table className="mt-6">
           <TableHeader>
             <TableRow>
               <TableHead className="text-muted-foreground pl-10">
@@ -77,7 +111,7 @@ export default function Clients() {
               <TableHead className="text-muted-foreground">Status</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="h-full">
             {firstEightClients.map((cliente) => (
               <TableRow key={cliente.cpf}>
                 <TableCell className="py-4 pl-10">{cliente.nome}</TableCell>
@@ -103,7 +137,17 @@ export default function Clients() {
           </TableBody>
         </Table>
         <Separator />
-        <ClientsFooter />
+        <div className="mx-10 mt-auto flex w-full items-center justify-between pb-5">
+          <span className="w-fit text-sm text-nowrap text-gray-500">
+            Mostrando dados {offset + 1} a{" "}
+            {offset + 7 > clientsLength ? clientsLength : offset + 7} de{" "}
+            {clientsLength} clientes
+          </span>
+          <PaginationComponent
+            className="h-fit pr-20"
+            limit={Math.ceil(clientsLength / 7)}
+          />
+        </div>
       </main>
     </>
   );

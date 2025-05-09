@@ -38,6 +38,7 @@ export type Cliente = {
   rua: string;
   cidade: string;
   numeroCasa: number;
+  pedidos: Pedido[];
 };
 
 export type ProdutoPedido = {
