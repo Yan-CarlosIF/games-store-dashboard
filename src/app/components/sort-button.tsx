@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -18,7 +19,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useRouter, useSearchParams } from "next/navigation";
 
 interface SortButtonProps {
   options: {
@@ -44,7 +44,7 @@ export default function SortButton({ options, className }: SortButtonProps) {
       params.delete("sort");
       router.push(`?${params.toString()}`);
     }
-  }, [value, router]);
+  }, [value, router, searchParams]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

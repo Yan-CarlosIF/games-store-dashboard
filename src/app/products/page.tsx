@@ -2,8 +2,8 @@ import { ArrowUpDown } from "lucide-react";
 
 import { getProducts } from "@/api/get-products";
 
+import PaginationComponent from "../components/pagination";
 import SortButton from "../components/sort-button";
-import ProductsPagination from "./components/pagination";
 import ProductCard from "./components/product-card";
 
 const filterOptions = [
@@ -109,7 +109,7 @@ export default async function Page({
                   {offset + 6 > productsLength ? productsLength : offset + 6} de{" "}
                   {filteredProducts.length} produtos
                 </span>
-                <ProductsPagination limit={Math.ceil(productsLength / 6)} />
+                <PaginationComponent limit={Math.ceil(productsLength / 6)} />
               </td>
             </tr>
           </tfoot>

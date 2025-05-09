@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter,useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 import {
   Pagination,
@@ -12,17 +13,19 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export default function ProductsPagination({ limit }: { limit: number }) {
+export default function PaginationComponent({ limit }: { limit: number }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  if (!searchParams.get("offset")) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("offset", "0");
-    router.push(`?${params.toString()}`);
-  }
+  useEffect(() => {
+    if (!searchParams.get("offset")) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("offset", "0");
+      router.push(`?${params.toString()}`);
+    }
+  }, [searchParams, router]);
 
-  const offset = parseInt(searchParams.get("offset")!);
+  const offset = parseInt(searchParams.get("offset") || "0") || 0;
 
   const actualPage = offset / 6 + 1;
 

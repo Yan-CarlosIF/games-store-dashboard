@@ -49,7 +49,7 @@ export type ProdutoPedido = {
 
 export type Pedido = {
   cliente: Cliente;
-  produtosPedido: ProdutoPedido[];
+  produtos: ProdutoPedido[];
   id: string;
   valorTotal: number;
   status: Status;

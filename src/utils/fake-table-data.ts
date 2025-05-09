@@ -1,4 +1,4 @@
-import { Cliente, Pedido, Status } from "@/types/schema";
+import { Cliente } from "@/types/schema";
 
 export const clientsFakeData: (Omit<Cliente, "pedidos"> & {
   pedidos: string[];
@@ -326,128 +326,128 @@ export const clientsFakeData: (Omit<Cliente, "pedidos"> & {
 //   },
 // ];
 
-export const ordersFakeData: Pedido[] = [
-  {
-    id: crypto.randomUUID(),
-    cliente: {
-      cpf: "123.456.789-00",
-      telefone: "11999999999",
-      nome: "João da Silva",
-      email: "joao.silva@email.com",
-      rua: "Rua das Flores",
-      cidade: "São Paulo",
-      numeroCasa: 101,
-    },
-    produtosPedido: [
-      {
-        id: "PP001",
-        quantidade: 1,
-        subTotal: 299.99,
-        produto: {
-          nome: "The Last of Us Part II",
-          preco: 299.99,
-          descricao: "Jogo de ação e aventura da Naughty Dog.",
-          estoque: 10,
-          jogo: {
-            desenvolvedora: "Naughty Dog",
-            dataLancamento: new Date("2020-06-19").toISOString(),
-            plataforma: "PlayStation 4",
-          },
-          ItemEletronico: null,
-          generos: [{ nome: "Ação" }, { nome: "Aventura" }],
-          pedidos: ["PED001"],
-        },
-      },
-    ],
-    valorTotal: 299.99,
-    status: Status.DELIVERED,
-    data: new Date("2025-05-01").toISOString(),
-  },
-  {
-    id: crypto.randomUUID(),
-    cliente: {
-      cpf: "987.654.321-11",
-      telefone: "21988888888",
-      nome: "Maria Oliveira",
-      email: "maria.oliveira@email.com",
-      rua: "Av. Central",
-      cidade: "Rio de Janeiro",
-      numeroCasa: 55,
-    },
-    produtosPedido: [
-      {
-        id: "PP002",
-        quantidade: 2,
-        subTotal: 199.98,
-        produto: {
-          nome: "Controle DualShock 4",
-          preco: 99.99,
-          descricao: "Controle sem fio da Sony para PS4.",
-          estoque: 25,
-          jogo: null,
-          ItemEletronico: {
-            fabricante: "Sony",
-            tipo: "Controle DualShock 4",
-          },
-          pedidos: ["PED002"],
-        },
-      },
-      {
-        id: "PP003",
-        quantidade: 1,
-        subTotal: 59.99,
-        produto: {
-          nome: "Elden Ring",
-          preco: 59.99,
-          descricao: "RPG de ação da FromSoftware.",
-          estoque: 9,
-          jogo: {
-            desenvolvedora: "FromSoftware",
-            dataLancamento: new Date("2022-02-25").toISOString(),
-            plataforma: "PlayStation 5",
-          },
-          generos: [{ nome: "RPG" }, { nome: "Ação" }],
-          ItemEletronico: null,
-          pedidos: ["PED002"],
-        },
-      },
-    ],
-    valorTotal: 259.97,
-    status: Status.SHIPPING,
-    data: new Date("2025-05-05").toISOString(),
-  },
-  {
-    id: crypto.randomUUID(),
-    cliente: {
-      cpf: "456.123.789-77",
-      telefone: "11912345678",
-      nome: "Carlos Mendes",
-      email: "carlos.mendes@email.com",
-      rua: "Rua do Sol",
-      cidade: "Curitiba",
-      numeroCasa: 200,
-    },
-    produtosPedido: [
-      {
-        id: "PP004",
-        quantidade: 1,
-        subTotal: 249.99,
-        produto: {
-          nome: "Monitor Samsung 24",
-          preco: 249.99,
-          descricao: "Monitor LED Full HD 24 polegadas.",
-          estoque: 7,
-          jogo: null,
-          ItemEletronico: {
-            fabricante: "Samsung",
-            tipo: 'Monitor 24"',
-          },
-          pedidos: ["PED003"],
-        },
-      },
-    ],
-    valorTotal: 249.99,
-    status: Status.CANCELED,
-    data: new Date("2025-05-03").toISOString(),
-  },
-];
+// export const ordersFakeData: Pedido[] = [
+//   {
+//     id: crypto.randomUUID(),
+//     cliente: {
+//       cpf: "123.456.789-00",
+//       telefone: "11999999999",
+//       nome: "João da Silva",
+//       email: "joao.silva@email.com",
+//       rua: "Rua das Flores",
+//       cidade: "São Paulo",
+//       numeroCasa: 101,
+//     },
+//     produtosPedido: [
+//       {
+//         id: "PP001",
+//         quantidade: 1,
+//         subTotal: 299.99,
+//         produto: {
+//           nome: "The Last of Us Part II",
+//           preco: 299.99,
+//           descricao: "Jogo de ação e aventura da Naughty Dog.",
+//           estoque: 10,
+//           jogo: {
+//             desenvolvedora: "Naughty Dog",
+//             dataLancamento: new Date("2020-06-19").toISOString(),
+//             plataforma: "PlayStation 4",
+//           },
+//           ItemEletronico: null,
+//           generos: [{ nome: "Ação" }, { nome: "Aventura" }],
+//           pedidos: ["PED001"],
+//         },
+//       },
+//     ],
+//     valorTotal: 299.99,
+//     status: Status.DELIVERED,
+//     data: new Date("2025-05-01").toISOString(),
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     cliente: {
+//       cpf: "987.654.321-11",
+//       telefone: "21988888888",
+//       nome: "Maria Oliveira",
+//       email: "maria.oliveira@email.com",
+//       rua: "Av. Central",
+//       cidade: "Rio de Janeiro",
+//       numeroCasa: 55,
+//     },
+//     produtosPedido: [
+//       {
+//         id: "PP002",
+//         quantidade: 2,
+//         subTotal: 199.98,
+//         produto: {
+//           nome: "Controle DualShock 4",
+//           preco: 99.99,
+//           descricao: "Controle sem fio da Sony para PS4.",
+//           estoque: 25,
+//           jogo: null,
+//           ItemEletronico: {
+//             fabricante: "Sony",
+//             tipo: "Controle DualShock 4",
+//           },
+//           pedidos: ["PED002"],
+//         },
+//       },
+//       {
+//         id: "PP003",
+//         quantidade: 1,
+//         subTotal: 59.99,
+//         produto: {
+//           nome: "Elden Ring",
+//           preco: 59.99,
+//           descricao: "RPG de ação da FromSoftware.",
+//           estoque: 9,
+//           jogo: {
+//             desenvolvedora: "FromSoftware",
+//             dataLancamento: new Date("2022-02-25").toISOString(),
+//             plataforma: "PlayStation 5",
+//           },
+//           generos: [{ nome: "RPG" }, { nome: "Ação" }],
+//           ItemEletronico: null,
+//           pedidos: ["PED002"],
+//         },
+//       },
+//     ],
+//     valorTotal: 259.97,
+//     status: Status.SHIPPING,
+//     data: new Date("2025-05-05").toISOString(),
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     cliente: {
+//       cpf: "456.123.789-77",
+//       telefone: "11912345678",
+//       nome: "Carlos Mendes",
+//       email: "carlos.mendes@email.com",
+//       rua: "Rua do Sol",
+//       cidade: "Curitiba",
+//       numeroCasa: 200,
+//     },
+//     produtosPedido: [
+//       {
+//         id: "PP004",
+//         quantidade: 1,
+//         subTotal: 249.99,
+//         produto: {
+//           nome: "Monitor Samsung 24",
+//           preco: 249.99,
+//           descricao: "Monitor LED Full HD 24 polegadas.",
+//           estoque: 7,
+//           jogo: null,
+//           ItemEletronico: {
+//             fabricante: "Samsung",
+//             tipo: 'Monitor 24"',
+//           },
+//           pedidos: ["PED003"],
+//         },
+//       },
+//     ],
+//     valorTotal: 249.99,
+//     status: Status.CANCELED,
+//     data: new Date("2025-05-03").toISOString(),
+//   },
+// ];

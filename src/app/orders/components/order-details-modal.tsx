@@ -10,7 +10,7 @@ type OrderDetailsModalProps = {
 };
 
 export default function OrderDetailsModal({ order }: OrderDetailsModalProps) {
-  const productsQuantity = order.produtosPedido.length;
+  const productsQuantity = order.produtos.length;
 
   return (
     <Popover>
@@ -42,7 +42,7 @@ export default function OrderDetailsModal({ order }: OrderDetailsModalProps) {
           <ChevronDown size={14} />
         </h1>
         <ul className="space-y-3 self-center py-1">
-          {order.produtosPedido.map((product) => (
+          {order.produtos.map((product) => (
             <li className="text-black-200 list-disc text-sm" key={product.id}>
               {product.produto.nome}
             </li>
