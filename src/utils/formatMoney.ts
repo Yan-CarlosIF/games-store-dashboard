@@ -4,3 +4,9 @@ export const formatMoney = (number: number) => {
     currency: "BRL",
   }).format(number);
 };
+
+export const formatMoneyGreaterThan1000 = (number: number) => {
+  return number >= 1000
+    ? `${(number / 1000).toFixed(1)}K`
+    : formatMoney(number);
+};
