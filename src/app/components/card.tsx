@@ -11,7 +11,7 @@ import Box from "@/../public/box.svg";
 import Order from "@/../public/order.svg";
 import { DateFilterContext } from "@/context/date-filter-context";
 import { Pedido } from "@/types/schema";
-import { formatMoney, formatMoneyGreaterThan1000 } from "@/utils/formatMoney";
+import { formatMoneyGreaterThan1000 } from "@/utils/formatMoney";
 
 interface CardProps {
   icon: "bag" | "box" | "order";
